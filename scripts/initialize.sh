@@ -25,7 +25,7 @@ if [[ ! -f "$STATE" ]]; then
       wine reg add 'HKCU\Software\Microsoft\Avalon.Graphics' /v DisableHWAcceleration /t REG_DWORD /d 1 /f
       release_line=$(wine reg query 'HKLM\Software\Microsoft\NET Framework Setup\NDP\v4\Full' /v Release)
       echo "$release_line"
-      release_hex=$(printf '%s\n' "$release_line" | awk '/Release[[:space:]]+REG_DWORD/ {print $3; exit}')
+      release_hex=$(printf '%s\n' "$release_line" | grep -Eo '0[xX][0-9a-fA-F]+' | tail -1)
       [[ "$release_hex" =~ ^0x[[:xdigit:]]+$ ]] || { echo "ERROR: .NET release value missing"; exit 1; }
       (( 16#${release_hex#0x} >= 528040 )) || { echo "ERROR: .NET 4.8 not installed ($release_hex)"; exit 1; }
       winetricks list-installed | grep -Eiq '(^|[[:space:]])corefonts([[:space:]]|$)' || { echo "ERROR: corefonts not recorded by winetricks"; exit 1; }
