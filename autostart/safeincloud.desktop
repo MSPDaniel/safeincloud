@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=SafeInCloud
+Exec=/opt/safeincloud/delayed-autostart.sh
+Terminal=false
+StartupNotify=false
+X-GNOME-Autostart-enabled=true
