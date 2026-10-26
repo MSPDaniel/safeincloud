@@ -1,0 +1,22 @@
+services:
+  safeincloud:
+    build: .
+    image: safeincloud:local
+    container_name: safeincloud
+    restart: unless-stopped
+    stop_grace_period: 60s
+    shm_size: "1gb"
+    labels:
+      net.unraid.docker.icon: "https://www.google.com/s2/favicons?domain=safe-in-cloud.com&sz=128"
+    environment:
+      PUID: "99"
+      PGID: "100"
+      TZ: America/Chicago
+      CUSTOM_USER: ${WEBTOP_USER:?Set WEBTOP_USER in .env}
+      PASSWORD: ${WEBTOP_PASSWORD:?Set WEBTOP_PASSWORD in .env}
+      TITLE: SafeInCloud
+    volumes:
+      - /mnt/cache/appdata/safeincloud/config:/config
+      - /mnt/cache/appdata/safeincloud/source:/opt/safeincloud/source:ro
+    ports:
+      - "3010:3001"
