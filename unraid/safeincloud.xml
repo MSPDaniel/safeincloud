@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Container version="2">
+  <Name>safeincloud</Name>
+  <Repository>ghcr.io/mspdaniel/safeincloud:latest</Repository>
+  <Registry>https://ghcr.io</Registry>
+  <Network>bridge</Network>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/MSPDaniel/safeincloud/issues</Support>
+  <Project>https://github.com/MSPDaniel/safeincloud</Project>
+  <Overview>SafeInCloud Original Windows desktop app running in Wine with Webtop XFCE. You must supply your own application files in the read-only source mount. Preserve /config between updates. HTTPS web interface on port 3010.</Overview>
+  <Category>Tools:</Category>
+  <WebUI>https://[IP]:[PORT:3001]/</WebUI>
+  <Icon>https://www.google.com/s2/favicons?domain=safe-in-cloud.com&amp;sz=128</Icon>
+  <ExtraParams>--shm-size=1g --stop-timeout=60</ExtraParams>
+  <Config Name="Web interface (HTTPS)" Target="3001" Default="3010" Mode="tcp" Description="Webtop HTTPS browser interface" Type="Port" Display="always" Required="true" Mask="false">3010</Config>
+  <Config Name="Persistent configuration" Target="/config" Default="/mnt/cache/appdata/safeincloud/config" Mode="rw" Description="Wine prefix, SafeInCloud database, and XFCE settings; do not delete" Type="Path" Display="always" Required="true" Mask="false">/mnt/cache/appdata/safeincloud/config</Config>
+  <Config Name="Windows application files" Target="/opt/safeincloud/source" Default="/mnt/cache/appdata/safeincloud/source" Mode="ro" Description="Your own SafeInCloud.exe and companion files (read-only)" Type="Path" Display="always" Required="true" Mask="false">/mnt/cache/appdata/safeincloud/source</Config>
+  <Config Name="PUID" Target="PUID" Default="99" Mode="" Description="Unraid user ID" Type="Variable" Display="advanced" Required="true" Mask="false">99</Config>
+  <Config Name="PGID" Target="PGID" Default="100" Mode="" Description="Unraid group ID" Type="Variable" Display="advanced" Required="true" Mask="false">100</Config>
+  <Config Name="Timezone" Target="TZ" Default="America/Chicago" Mode="" Description="Container timezone" Type="Variable" Display="advanced" Required="true" Mask="false">America/Chicago</Config>
+  <Config Name="Webtop username" Target="CUSTOM_USER" Default="" Mode="" Description="Webtop login username" Type="Variable" Display="always" Required="true" Mask="false"></Config>
+  <Config Name="Webtop password" Target="PASSWORD" Default="" Mode="" Description="Webtop login password" Type="Variable" Display="always" Required="true" Mask="true"></Config>
+  <Config Name="Browser title" Target="TITLE" Default="SafeInCloud" Mode="" Description="Webtop browser title" Type="Variable" Display="advanced" Required="false" Mask="false">SafeInCloud</Config>
+</Container>
